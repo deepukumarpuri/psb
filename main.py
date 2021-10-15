@@ -51,10 +51,10 @@ PDiskBot = Client(
 
 @PDiskBot.on_message(filters.command("start") & ~filters.edited)
 async def start_handler(_, m: Message):
-    await m.reply_text("Hi, I am Alive!\n\nSearch using /request command.", quote=True)
+    await m.reply_text("Hi, I am Pdisk Movie Search Bot!\n\nSearch using /search After Movie Name.Example :- `/search Pm Narendra Modi`", quote=True)
 
 
-@PDiskBot.on_message(filters.command("request", prefixes=["#", "/"]) & ~filters.edited, group=-1)
+@PDiskBot.on_message(filters.command("search", prefixes=["#", "/"]) & ~filters.edited, group=-1)
 async def text_handler(_, m: Message):
     if len(m.command) < 2:
         return await m.reply_text("Search Query Missing!")
@@ -64,7 +64,7 @@ async def text_handler(_, m: Message):
         traceback.print_exc()
         try: await editable.edit("Failed to search!",
                                  reply_markup=InlineKeyboardMarkup([
-                                     [InlineKeyboardButton("Sumpot Group", url="https://t.me/JoinOT")]
+                                     [InlineKeyboardButton("Sumpot CHANNEL", url="https://t.me/DKBOTZ")]
                                  ]))
         except MessageNotModified: pass
     elif not response["data"]["list"]:
@@ -79,7 +79,6 @@ async def text_handler(_, m: Message):
                 break
             count += 1
             text += f"**Title:** `{data[i]['title']}`\n" \
-                    f"**Description:** `{data[i]['description']}`\n" \
                     f"**PDisk Link:** {Configs.PDISK_DOMAIN + 'share-video?videoid=' + data[i]['share_link'].split('=', 1)[-1]}\n\n"
         try: await editable.edit(text, disable_web_page_preview=True)
         except MessageNotModified: pass
